@@ -1,0 +1,36 @@
+server:
+  http2:
+    enabled: true
+  port: 9002
+
+spring:
+  application:
+    name: gateway-service
+  main:
+    allow-bean-definition-overriding: true
+
+  profiles:
+    active: dev
+
+  config:
+    import: configserver:http://localhost:9000?fail-fast=true&max-attempts=10&max-interval=1500&multiplier=12&initial-interval=1100
+
+#resilience4j:
+#  retry:
+#    instances:
+#      product-service:
+#        max-attempts: 3
+#        wait-duration: 500ms
+#        enable-exponential-backoff: true
+#        exponential-backoff-multiplier: 1.0
+#        exponential-max-wait-duration: 2s
+#        retry-exceptions:
+#          - org.springframework.web.client.HttpServerErrorException
+#          - org.springframework.web.client.HttpClientErrorException
+#          - org.springframework.web.client.ResourceAccessException
+#          - org.springframework.web.client.RestClientException
+#          - org.springframework.web.client.UnknownHttpStatusCodeException
+#        ignore-exceptions:
+#          - java.lang.IllegalArgumentException
+
+
